@@ -18,6 +18,14 @@
 			LEFT JOIN fabricante ON estoque_items.fabricante = fabricante.idfabricante
 			";
 	$items = $mysqlObj->query($sql);
+	
+	$sql_local_estoque = "SELECT			
+							local_estoque.predio,
+							local_estoque.sala,
+							local_estoque.apelido
+						  FROM local_estoque;
+							";
+	$local_estoque = $mysqlObj->query($sql_local_estoque);
 ?>
 <!DOCTYPE html>
 <html>
@@ -365,7 +373,7 @@
           <!-- Default box -->
           <div class="box">
             <div class="box-header with-border">
-              <h2 class="box-title"><img width=55px height=55px src="dist/img/pucminas.png" /><strong>  Resumo</strong></h2>
+              <h2 class="box-title"><img width=55px height=55px src="dist/img/pucminas.png" /><strong>  Resumo de estoque</strong></h2>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                 <!--<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>-->
@@ -420,6 +428,41 @@
 						</tfoot>
 					</table>
 					<center><a href="paginaImpressao.php"><strong>Pagina de impressão</strong></a></center>
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
+			
+			<br />
+			<br />
+			<br />
+			
+			<!--Local estoque-->
+			<div class="box">                    
+				<div class="box-body">				
+					<center><strong>Local estoque</strong></center>
+				  <table id="estoqueApelido" class="table table-bordered table-striped">
+						<thead>
+						  <tr>
+							<th>Predio</th>
+							<th>Sala</th>
+							<th>Apelido</th>
+						  </tr>
+						</thead>
+						<tbody>   
+							<?php while($row_local_estoque = $mysqlObj->fetch_array($local_estoque)):?>
+							<tr>
+								<td><?=$row_local_estoque['predio']?></td>
+								<td><?=$row_local_estoque['sala']?></td>
+								<td><?=$row_local_estoque['apelido']?></td>
+							</tr>
+							<?php endwhile;?>    
+							
+						</tbody>
+						<tfoot>
+							<th>Predio</th>
+							<th>Sala</th>
+							<th>Apelido</th>
+						</tfoot>
+					</table>
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 
